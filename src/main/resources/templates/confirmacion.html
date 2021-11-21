@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <!-- Styles Custom -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <title>TÚ PADRINO | Confirmacion de Pago</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbarAuthenticated :: navbar}"></div>
+    <!-- Navbar -->
+    <div class="container p-5 height-custom d-flex align-items-center">
+        <div class="d-flex h-100 w-100 align-items-center">
+            <img class="img-custom col-3" th:if="${src_img}" th:src="${src_img}"
+                alt="Vector de Personas creado por freepik - www.freepik.es">
+            <div class="offset-4 col-8">
+                <div th:if="${message}">
+                    <h2 th:text="${message}" class="title"></h2>
+                    <p>
+                        Durante esta semana el beneficiario se va a comunicar con usted, recuerda que
+                        puedes administar las contribuciones en el botón de "Mis contribuciones", Gracias :)
+                    </p>
+                </div>
+                <div th:if="${error} == 'El pago no se pudo completar, la cédula no coincide'">
+                    <h2 th:text="${error}" class="title"></h2>
+                    <p>
+                        Puedes verificar el numero de cédula registrado dandole al botón de "Mi perfil".
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</body>
+
+</html>

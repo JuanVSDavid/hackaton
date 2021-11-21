@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="container-fluid bg-color" th:fragment="footer">
+        <footer class="text-white">
+            <div class="container d-flex align-items-center justify-content-between p-1 p-md-2">
+                <section class = "d-flex flex-column flex-md-row align-items-center" >
+                    <div class="d-flex flex-column">
+                        <img th:src="@{/avatar-logos/male-1.svg}" class="d-block footer-logo" alt="Vector de Personas creado por freepik - www.freepik.es" />
+                        <h5 class = "brand">TÚ PADRINO</h5>
+                    </div>
+                </section>
+                <section class = "d-flex flex-column flex-md-row align-items-center" >
+                    <a class="btn btn-outline-light btn-floating m-1"
+                        href="https://www.linkedin.com/in/juan-david-ruiz-vargas-13b995204/" target="_blank"
+                        role="button"><i class="fab fa-linkedin-in"></i></a>
+                        <span class = "d-none d-md-block ms-0 me-0 ms-md-2 me-md-2 ">Juan David Ruiz Vargas</span>
+                    <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/JuanVSDavid"
+                        target="_blank" role="button"><i class="fab fa-github"></i></a>
+                        <span class = "d-none d-md-block ms-0 ms-md-2">JuanVSDavid</span>
+                </section>
+                <section>
+                    <h5>Acerca de nosotros</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="text-white" href="#">Sobre TÚ PADRINO</a>
+                        </li>
+                        <li class="text-white">
+                            <a class="text-white" href="#">Preguntas frecuentes</a>
+                        </li>
+                        <li class="text-white">
+                            <a class="text-white" href="#">¿Cómo funciona?</a>
+                        </li>
+                        <li class="text-white">
+                            <a class="text-white" href="#">Términos y Condiciones</a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="row bg-color-secondary d-flex justify-content-center p-1">
+                © 2021 Copyright: Juan Ruiz
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

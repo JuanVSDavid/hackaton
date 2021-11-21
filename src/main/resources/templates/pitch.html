@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <!-- Styles Custom -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <title>TÚ PADRINO | Proyecto</title>
+</head>
+
+<body>
+    <div th:replace="~{fragments/navbarAuthenticated :: navbar}"></div>
+    <div class="container mt-3 mb-3">
+        <section class="row">
+            <h2 class="title">Publica tu Proyecto</h2>
+            <form th:action="${subir}" method="post" th:object="${pitch}" enctype="multipart/form-data" class="col-12 col-lg-6 p-3 d-flex flex-column justify-content-between">
+                <div class="form-outline col-12 mb-3">
+                    <input class="form-control" id="titulo" th:field = "*{titulo}" type="text" />
+                    <label class="form-label" for="titulo">Nombre del proyecto</label>
+                </div>
+                <div class="form-outline col-12 mb-3">
+                    <input class="form-control" id="valor" th:field = "*{meta}" type="number" min="1000" />
+                    <label class="form-label" for="valor">Valor a recaudar</label>
+                </div>
+                <div class="col-12 d-flex flex-column flex-lg-row align-content-center mb-3">
+                    <label class="form-label" for="fecha_finally">Fecha limite</label>
+                    <input class="form-control" id="fecha_finally" th:field = "*{fecha_final}" type="date" />
+                </div>
+                <div class="col-12 d-flex flex-column align-content-center mb-3">
+                    <label class="form-label alone" for="file">Sube una foto tuya</label>
+                    <input class="form-control" id="file" name = "file" type="file" enctype="multipart/form-data" />
+                </div>                
+                <div class="form-outline col-12">
+                    <input class="form-control" id="url" th:field = "*{url_youtube}" type="text" />
+                    <label class="form-label" for="url">Url de video de YouTube</label>
+                </div>
+                <span class="text-danger mb-3">Si no aparece tu video de YouTube borra y mira el tutorial</span>
+                <div class="form-group mb-3">
+                    <label for="exampleFormControlTextarea3">Descripcion del proyecto <span id="limite"
+                            class="text-warning"></span></label>
+                    <textarea id="descripcion" th:field = "*{descripcion}"class="form-control" rows="5"></textarea>
+                </div>
+                <div class="btn-group">
+                    <button th:if = "${subir} == '/proyecto/upload'" type="submit" class="btn bg-color-secondary-t">Subir</button>
+                    <button th:if = "${subir} == '/proyecto/update'" type="button" id="update" class="btn btn-warning">Modificar</button>
+                    <button th:if = "${subir} == '/proyecto/update'" type="button" id="delete" class="btn btn-danger">Eliminar</button>
+                    <button type="button" id="limpiar" class="btn btn-outline-danger">Limpiar</button>
+                </div>
+            </form>
+            <div class="col-12 col-lg-6 p-3">
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1">
+                    <iframe id="video-iframe" class="embed-responsive-item" height="100%"
+                        src="https://www.youtube.com/embed/I5_T547tHf0" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Scripts Custom -->
+    <script type="text/javascript" th:src="@{/js/validarPitch.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <!-- Styles Custom -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" rel="stylesheet" />
+    <title th:text="'TÚ PADRINO | Proyecto: '+${pitch.titulo}"></title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbarAuthenticated :: navbar}"></div>
+    <!-- Navbar -->
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            <h2 th:text="${pitch.titulo}" class="title mb-4"></h2>
+            <section class="col-12 col-lg-9">
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1">
+                    <iframe id="video-iframe" class="embed-responsive-item" height="100%"
+                        th:src="'https://www.youtube.com/embed/'+${pitch.url_youtube}" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <h4 class="mt-4 text-dark">Descripcion</h4>
+                <p th:text="${pitch.descripcion}" class="text-dark"></p>
+            </section>
+            <section class="col-12 col-lg-3 d-flex flex-column">
+                <div class="bg-color-gray mb-5 d-flex flex-column justify-content-center">
+                    <div class="name-button d-flex flex-column align-items-center p-2">
+                        <h6 th:text="${pitch.usuario.usuario_name}" class="mb-4"></h6>
+                        <button type="button" class="btn btn-block bg-color-secondary-t" data-mdb-toggle="modal"
+                            data-mdb-target="#addContribution">
+                            Colaborar
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-color-gray d-flex flex-column justify-content-center">
+                    <div class="d-flex flex-row align-items-center justify-content-between">
+                        <div class="d-flex flex-column">
+                            <span class="span-custom">Recaudados:</span>
+                            <p th:text="${pitch.recaudado}" id="initial" class=""></p>
+                        </div>
+                        <div class="d-flex flex-column align-items-end">
+                            <span class="span-custom">Meta:</span>
+                            <p th:text="${pitch.meta}" id="final" class=""></p>
+                        </div>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-bar-value"></div>
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </section>
+            <h4 class="title mt-5">Padrinos</h4>
+            <table class="col-12 table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Colaboracion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(list_pitch)}">
+                        <td th:text="${texto}" class="text-center" colspan="2"></td>
+                    </tr>
+                    <tr th:unless="${#lists.isEmpty(list_pitch)}" th:each="pad : ${list_pitch}">
+                        <td th:text="${pad.usuario.usuario_name}" scope="row"></td>
+                        <td th:text="${pad.contribucion}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addContribution" tabindex="-1" aria-labelledby="modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-label">¿Deseas contribuir?</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form id = "subirF" class="p-3 needs-validation" th:object="${formulario}" method="POST" th:action="@{/contriUpload}" novalidate>
+                        <div class="modal-body">
+                            <div class="form-outline mb-4">
+                                <input th:field="*{id}" class="form-control disabled" type="number" readonly>
+                                <label class="form-label" for="id">Id Proyecto</label>
+                                <div class="invalid-feedback">Dato invalido</div>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input th:field="*{cedula}" id= "cedula_c" class="form-control" type="number" required>
+                                <label class="form-label" for="cedula_c">Confirme la cedula</label>
+                                <div class="invalid-feedback">Dato invalido</div>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input th:field = "*{contribucion}" id = "tip1" class="form-control" type="number" required>
+                                <label class="form-label" for="tip1">Digita la suma a dar</label>
+                                <div class="invalid-feedback">Dato invalido</div>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input class="form-control" type="number" id = "tip2" required>
+                                <label class="form-label" for="tip2">Confirme la suma a dar</label>
+                                <div class="invalid-feedback">Dato invalido</div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn bg-color-secondary-t" type="submit">Confirmar</button>
+                            <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Scripts Custom -->
+    <script type="text/javascript" th:src="@{/js/vista.js}"></script>
+</body>
+
+</html>
