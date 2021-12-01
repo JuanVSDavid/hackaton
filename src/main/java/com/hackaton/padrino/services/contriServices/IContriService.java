@@ -40,5 +40,10 @@ public class IContriService implements contriService{
             cr.deleteById(id);
         }
     }
+
+    @Override
+    public List<contribucion> listContriForId_usuario(Long id_usuario) {
+        return cr.ListForId_Usuario(id_usuario);
+    }
     
 }

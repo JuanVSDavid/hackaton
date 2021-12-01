@@ -1,3 +1,41 @@
+(() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+function deletePitch(id) {
+    console.log(id)
+    Swal.fire({
+        title: '¿Estas seguro?',
+        text: "¡No podras revertir este cambio!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#261B26',
+        cancelButtonColor: '#f93154',
+        confirmButtonText: 'Confirmar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/proyecto/delete'
+            })
+            Swal.fire(
+                '¡Eliminado!',
+                'Los datos de la venta se han eleminado.',
+                'success'
+            ).then(() => {
+                location.href = "/"
+            })
+        }
+    })
+}
 $('#limite').text('250 carácteres restantes')
 $('#descripcion').keydown(function () {
     let max = 250
@@ -15,7 +53,7 @@ $('#descripcion').keydown(function () {
     }
 })
 const iframe = "https://www.youtube.com/embed/"
-const default_iframe = "https://www.youtube.com/embed/I5_T547tHf0"
+const default_iframe = "https://www.youtube.com/embed/oixPPZf8UE8"
 $('#url').change(function () {
     let url = $('input[id=url]').val()
     if (url === "" || url === null || url === undefined) {
@@ -23,7 +61,7 @@ $('#url').change(function () {
         return
     }
     let index = url.indexOf('.be/') + 4
-    if(index == -1) {
+    if (index == -1) {
         let result = iframe + url
         $('#video-iframe').attr('src', result)
         return
@@ -41,4 +79,4 @@ $(function () {
         $('#fecha_finally').val(null)
         $('#video-iframe').attr('src', default_iframe)
     })
-});
+})

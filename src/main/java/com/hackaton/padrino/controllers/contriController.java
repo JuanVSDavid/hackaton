@@ -72,7 +72,7 @@ public class contriController {
             c.setContribucion(f.getContribucion());
             cs.saveContribucion(c);
             p.setRecaudado(p.getRecaudado() + f.getContribucion());
-            ps.updatePitch(p);
+            ps.updatePitch(p);           
             return "redirect:/confirmacion/" + "OKEY";
         }
         return "redirect:/confirmacion/" + "FALSE";

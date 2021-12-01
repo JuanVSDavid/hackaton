@@ -29,16 +29,16 @@ let finalFormater = numeral(final).format('$0,0')
 $('#initial').text(initialFormater)
 $('#final').text(finalFormater)
 const p = new ProgressBar(document.querySelector('.progress-bar-custom'), result.toFixed(2))
-    (() => {
-        'use strict';
-        const form = document.getElementById('#subirF').value;
-        let dato1 = document.getElementById('#tip1').value;
-        let dato2 = document.getElementById('#tip2');
-        form.addEventListener('submit', (event) => {
-            if (!form.checkValidity() && dato1 === dato2) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-        }, false);
-    })();
+(() => {
+    'use strict';
+    const form = document.getElementById('#subirF').value;
+    let dato1 = document.getElementById('#tip1').value;
+    let dato2 = document.getElementById('#tip2').value;
+    form.addEventListener('submit', (event) => {
+        if (!form.checkValidity() && dato1 === dato2) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    }, false);
+})();

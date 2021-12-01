@@ -76,9 +76,9 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a sec:authorize="hasAuthority('BENEFICIARIO')" class="dropdown-item"
-                                        th:href="@{/beneficiarios}">Mis Padrinos</a>
+                                        th:href="@{/padrinos}">Mis Padrinos</a>
                                     <a sec:authorize="hasAuthority('PADRINO')" class="dropdown-item"
-                                        th:href="@{/padrinos}">Mis Contribuciones</a>
+                                        th:href="@{/beneficiarios}">Mis Contribuciones</a>
                                     <a class="dropdown-item" th:href="@{/logout}">Cerrar sesion</a>
                                 </li>
                             </ul>

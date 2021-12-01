@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.hackaton.padrino.models.contribucion;
 import com.hackaton.padrino.models.pitch;
 import com.hackaton.padrino.models.usuario;
+import com.hackaton.padrino.services.contriServices.contriService;
 import com.hackaton.padrino.services.pitchServices.pitchService;
 import com.hackaton.padrino.services.usuariosServices.usuarioService;
 
@@ -21,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +40,10 @@ public class pitchController {
     @Autowired
     @Qualifier("usuarioService")
     private usuarioService us;
+
+    @Autowired
+    @Qualifier("contriService")
+    private contriService cs;
 
     public pitchController(pitchService ps, usuarioService us) {
         this.ps = ps;
@@ -131,9 +137,17 @@ public class pitchController {
         }
         return "redirect:/pitch";
     }
-    @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") long id){
+    @GetMapping("/delete")
+    public String delete(){
+        usuario u = getUser();
+        Long id = u.getPitch().getId_pitch();
+        List<contribucion> listc = u.getPitch().getContribuciones();
+        for (contribucion cc : listc) {
+            cs.deleteContribucion(cc.getId_contribucion());
+        }
         ps.deletePitchById(id);
+        u.setC_pitch(0);
+        us.updateUsuarioPitch(u);
         return "redirect:/explorar";
     }
 }
